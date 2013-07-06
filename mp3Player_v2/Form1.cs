@@ -48,6 +48,7 @@ namespace mp3Player_v2
                     }
                 }
                 UpdateListView();
+                EnableButtons();
                 return true;
             }
             catch (Exception)
@@ -177,6 +178,7 @@ namespace mp3Player_v2
 
         private void AddFileToPlaylistAndListView()
         {
+            openFileDialog1.FileName = "";
             openFileDialog1.Filter = @"mp3 files (*.mp3)|*.mp3";
             DialogResult result = openFileDialog1.ShowDialog();
             if (result == DialogResult.OK)
@@ -291,8 +293,6 @@ namespace mp3Player_v2
 
         private void listView1_MouseClick(object sender, MouseEventArgs e)
         {
-            bool match = false;
-
             if (e.Button == MouseButtons.Right)
             {
             
@@ -300,25 +300,13 @@ namespace mp3Player_v2
             {
                 if (item.Bounds.Contains(new Point(e.X, e.Y)))
                 {
-                    MenuItem[] mi = new[] {new MenuItem("Edit tags", OnClickEditTags), new MenuItem("Remove", OnClickRemove) };
-                    listView1.ContextMenu = new ContextMenu(mi);
-                    match = true;
+                    contextMenuStrip1.Show(listView1, new Point(e.X, e.Y));
                     break;
                 }
             }
-            if (match)
-            {
-                listView1.ContextMenu.Show(listView1, new Point(e.X, e.Y));
-            }
+            
             }
     }
-
-        private void OnClickRemove(object sender, EventArgs e)
-        {
-            _focusedTrackIndex = listView1.FocusedItem.Index;
-            RemoveFromPlaylistAt(_focusedTrackIndex);
-            RemoveFromListViewAt(_focusedTrackIndex);
-        }
 
         private void RemoveFromListViewAt(int index)
         {
@@ -328,14 +316,6 @@ namespace mp3Player_v2
         private void RemoveFromPlaylistAt(int index)
         {
             _playList.RemoveAt(index);
-        }
-
-        private void OnClickEditTags(object sender, EventArgs eventArgs)
-        {
-            _focusedTrackIndex = listView1.FocusedItem.Index;
-            _form2 = new Form2(_playList[_focusedTrackIndex]);
-            _form2.Show();
-            _form2.Closing += form2_Closing;
         }
 
         void form2_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -397,6 +377,7 @@ namespace mp3Player_v2
 
         private void loadPlaylistToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            openFileDialog1.FileName = "";
             openFileDialog1.Filter = @"playlist files |*.playlist";
             DialogResult result = openFileDialog1.ShowDialog();
             if (result == DialogResult.OK)
@@ -405,6 +386,37 @@ namespace mp3Player_v2
                 LoadPlaylist(openFileDialog1.FileName);
             }
         }
+
+        private void editTagsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            _focusedTrackIndex = listView1.FocusedItem.Index;
+            _form2 = new Form2(_playList[_focusedTrackIndex]);
+            _form2.Show();
+            _form2.Closing += form2_Closing;
+        }
+
+        private void contextMenuStrip1_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            contextMenuStrip1.Enabled = listView1.SelectedItems.Count > 0;
+        }
+
+        private void removeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            _focusedTrackIndex = listView1.FocusedItem.Index;
+            RemoveFromPlaylistAt(_focusedTrackIndex);
+            RemoveFromListViewAt(_focusedTrackIndex);
+        }
+
+        private void removeAllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            _playList.Clear();
+            listView1.Items.Clear();
+
+            play.Enabled = false;
+            stop.Enabled = false;
+        }
+
+        
     }
 
     enum SortingParams
