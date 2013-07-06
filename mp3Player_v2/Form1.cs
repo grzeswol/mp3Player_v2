@@ -416,6 +416,11 @@ namespace mp3Player_v2
             stop.Enabled = false;
         }
 
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
         
     }
 
