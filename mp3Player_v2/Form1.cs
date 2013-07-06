@@ -153,7 +153,7 @@ namespace mp3Player_v2
 
         /* private void SQLTest()
         {
-            string str = @"Data Source=C:\Users\grzes\Documents\Visual Studio 2012\Projects\mp3Player_v2\mp3Player_v2\Library.sdf";
+            string str = @"Data Source=Library.sdf";
             SqlCeConnection connection = new SqlCeConnection();
             connection.ConnectionString = str;
             try
