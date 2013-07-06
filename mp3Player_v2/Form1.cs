@@ -15,11 +15,12 @@ namespace mp3Player_v2
 
         private readonly MusicPlayer _mp = new MusicPlayer();
         private readonly TrackPaths _trackPaths = new TrackPaths();
+
         private Form2 _form2;
         private int _sortColumn = -1;
+        private List<Track> _playList = new List<Track>();
+        private int _focusedTrackIndex;
 
-        private List<Track> _playList = new List<Track>(); 
-        
 
         public Form1()
         {
@@ -34,10 +35,12 @@ namespace mp3Player_v2
 
         private bool LoadPlaylist(string playlistName)
         {
+            _playList.Clear();
             try
             {
                 using (StreamReader stream = new StreamReader(playlistName))
                 {
+                    
                     string line;
                     while ((line = stream.ReadLine()) != null)
                     {
@@ -172,14 +175,17 @@ namespace mp3Player_v2
 
         */
 
-        private void addFile_Click(object sender, EventArgs e)
+        private void AddFileToPlaylistAndListView()
         {
+            openFileDialog1.Filter = @"mp3 files (*.mp3)|*.mp3";
             DialogResult result = openFileDialog1.ShowDialog();
-            if (result != DialogResult.OK) return;
-            Track tempTrack = new Track(openFileDialog1.FileName);
-            _playList.Add(tempTrack);
-            AddTrackToListView(tempTrack);
-            EnableButtons();
+            if (result == DialogResult.OK)
+            {
+                Track tempTrack = new Track(openFileDialog1.FileName);
+                _playList.Add(tempTrack);
+                AddTrackToListView(tempTrack);
+                EnableButtons();
+            }
         }
 
         private void EnableButtons()
@@ -188,12 +194,7 @@ namespace mp3Player_v2
             stop.Enabled = true;
         }
 
-        private void addFolder_Click(object sender, EventArgs e)
-        {
-            AddTracksToPlaylist();
-        }
-
-        private void AddTracksToPlaylist()
+        private void AddFolderToPlaylistAndListView()
         {
             DialogResult result = folderBrowserDialog1.ShowDialog();
             if (result != DialogResult.OK) return;
@@ -220,8 +221,8 @@ namespace mp3Player_v2
             try
             {
                 _mp.Stop();
-                int index = listView1.FocusedItem.Index;
-                _mp.Open(_playList[index].GetTrackPath());
+                _focusedTrackIndex = listView1.FocusedItem.Index;
+                _mp.Open(_playList[_focusedTrackIndex].GetTrackPath());
                 _mp.Play();
             }
             catch (NullReferenceException)
@@ -314,9 +315,9 @@ namespace mp3Player_v2
 
         private void OnClickRemove(object sender, EventArgs e)
         {
-            int index = listView1.FocusedItem.Index;
-            RemoveFromPlaylistAt(index);
-            RemoveFromListViewAt(index);
+            _focusedTrackIndex = listView1.FocusedItem.Index;
+            RemoveFromPlaylistAt(_focusedTrackIndex);
+            RemoveFromListViewAt(_focusedTrackIndex);
         }
 
         private void RemoveFromListViewAt(int index)
@@ -331,17 +332,17 @@ namespace mp3Player_v2
 
         private void OnClickEditTags(object sender, EventArgs eventArgs)
         {
-            int index = listView1.FocusedItem.Index;
-            _form2 = new Form2(_playList[index]);
+            _focusedTrackIndex = listView1.FocusedItem.Index;
+            _form2 = new Form2(_playList[_focusedTrackIndex]);
             _form2.Show();
             _form2.Closing += form2_Closing;
         }
 
         void form2_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            int index = listView1.FocusedItem.Index;
-            AddTrackToPlaylistAt(_form2.Track, index);
-            AddTrackToListView(_form2.Track,index);
+            _focusedTrackIndex = listView1.FocusedItem.Index;
+            AddTrackToPlaylistAt(_form2.Track, _focusedTrackIndex);
+            AddTrackToListView(_form2.Track,_focusedTrackIndex);
         }
 
         private void SavePlaylist(string playlistName)
@@ -368,6 +369,41 @@ namespace mp3Player_v2
         private void Form1_FormClosing_1(object sender, FormClosingEventArgs e)
         {
             SavePlaylist(CurrentPlaylist);
+        }
+
+        private void addFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AddFileToPlaylistAndListView();
+        }
+
+        private void addFolderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AddFolderToPlaylistAndListView();
+        }
+
+        private void savePlaylistToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            saveFileDialog1.Filter = @"playlist files |*.playlist";
+            saveFileDialog1.ShowDialog();
+            if (!String.IsNullOrEmpty(saveFileDialog1.FileName))
+            {
+                SavePlaylist(saveFileDialog1.FileName);
+            }
+            else
+            {
+                MessageBox.Show(@"Please specify name for your playlist");
+            }
+        }
+
+        private void loadPlaylistToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            openFileDialog1.Filter = @"playlist files |*.playlist";
+            DialogResult result = openFileDialog1.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                listView1.Items.Clear();
+                LoadPlaylist(openFileDialog1.FileName);
+            }
         }
     }
 

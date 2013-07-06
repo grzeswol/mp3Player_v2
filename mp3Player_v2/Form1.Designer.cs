@@ -33,8 +33,6 @@ namespace mp3Player_v2
             this.components = new System.ComponentModel.Container();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.addFile = new System.Windows.Forms.Button();
-            this.addFolder = new System.Windows.Forms.Button();
             this.play = new System.Windows.Forms.Button();
             this.stop = new System.Windows.Forms.Button();
             this.volumeTrackBar = new System.Windows.Forms.TrackBar();
@@ -46,38 +44,28 @@ namespace mp3Player_v2
             this.lengthHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.yearHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.label1 = new System.Windows.Forms.Label();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.playlistToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.savePlaylistToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadPlaylistToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.volumeTrackBar)).BeginInit();
             this.groupBox1.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // openFileDialog1
             // 
-            this.openFileDialog1.FileName = "openFileDialog1";
-            // 
-            // addFile
-            // 
-            this.addFile.Location = new System.Drawing.Point(13, 13);
-            this.addFile.Name = "addFile";
-            this.addFile.Size = new System.Drawing.Size(75, 23);
-            this.addFile.TabIndex = 1;
-            this.addFile.Text = "Add File";
-            this.addFile.UseVisualStyleBackColor = true;
-            this.addFile.Click += new System.EventHandler(this.addFile_Click);
-            // 
-            // addFolder
-            // 
-            this.addFolder.Location = new System.Drawing.Point(94, 13);
-            this.addFolder.Name = "addFolder";
-            this.addFolder.Size = new System.Drawing.Size(75, 23);
-            this.addFolder.TabIndex = 2;
-            this.addFolder.Text = "Add Folder";
-            this.addFolder.UseVisualStyleBackColor = true;
-            this.addFolder.Click += new System.EventHandler(this.addFolder_Click);
+            this.openFileDialog1.Filter = "\"mp3 files (*.mp3)|*.mp3\"";
             // 
             // play
             // 
             this.play.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.play.Location = new System.Drawing.Point(552, 13);
+            this.play.Location = new System.Drawing.Point(552, 36);
             this.play.Name = "play";
             this.play.Size = new System.Drawing.Size(75, 23);
             this.play.TabIndex = 3;
@@ -88,7 +76,7 @@ namespace mp3Player_v2
             // stop
             // 
             this.stop.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.stop.Location = new System.Drawing.Point(633, 13);
+            this.stop.Location = new System.Drawing.Point(633, 36);
             this.stop.Name = "stop";
             this.stop.Size = new System.Drawing.Size(75, 23);
             this.stop.TabIndex = 4;
@@ -109,8 +97,9 @@ namespace mp3Player_v2
             // groupBox1
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.volumeTrackBar);
-            this.groupBox1.Location = new System.Drawing.Point(13, 268);
+            this.groupBox1.Location = new System.Drawing.Point(13, 302);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(402, 60);
             this.groupBox1.TabIndex = 6;
@@ -130,9 +119,9 @@ namespace mp3Player_v2
             this.yearHeader});
             this.listView1.FullRowSelect = true;
             this.listView1.HideSelection = false;
-            this.listView1.Location = new System.Drawing.Point(13, 43);
+            this.listView1.Location = new System.Drawing.Point(13, 65);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(695, 219);
+            this.listView1.Size = new System.Drawing.Size(695, 231);
             this.listView1.TabIndex = 7;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -168,24 +157,98 @@ namespace mp3Player_v2
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(33, 44);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(42, 13);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "Volume";
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem,
+            this.playlistToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(725, 24);
+            this.menuStrip1.TabIndex = 8;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addFileToolStripMenuItem,
+            this.addFolderToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Text = "File";
+            // 
+            // addFileToolStripMenuItem
+            // 
+            this.addFileToolStripMenuItem.Name = "addFileToolStripMenuItem";
+            this.addFileToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.addFileToolStripMenuItem.Text = "Add file";
+            this.addFileToolStripMenuItem.Click += new System.EventHandler(this.addFileToolStripMenuItem_Click);
+            // 
+            // addFolderToolStripMenuItem
+            // 
+            this.addFolderToolStripMenuItem.Name = "addFolderToolStripMenuItem";
+            this.addFolderToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.addFolderToolStripMenuItem.Text = "Add folder";
+            this.addFolderToolStripMenuItem.Click += new System.EventHandler(this.addFolderToolStripMenuItem_Click);
+            // 
+            // playlistToolStripMenuItem
+            // 
+            this.playlistToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.savePlaylistToolStripMenuItem,
+            this.loadPlaylistToolStripMenuItem});
+            this.playlistToolStripMenuItem.Name = "playlistToolStripMenuItem";
+            this.playlistToolStripMenuItem.Size = new System.Drawing.Size(56, 20);
+            this.playlistToolStripMenuItem.Text = "Playlist";
+            // 
+            // savePlaylistToolStripMenuItem
+            // 
+            this.savePlaylistToolStripMenuItem.Name = "savePlaylistToolStripMenuItem";
+            this.savePlaylistToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.savePlaylistToolStripMenuItem.Text = "Save playlist";
+            this.savePlaylistToolStripMenuItem.Click += new System.EventHandler(this.savePlaylistToolStripMenuItem_Click);
+            // 
+            // loadPlaylistToolStripMenuItem
+            // 
+            this.loadPlaylistToolStripMenuItem.Name = "loadPlaylistToolStripMenuItem";
+            this.loadPlaylistToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.loadPlaylistToolStripMenuItem.Text = "Load playlist";
+            this.loadPlaylistToolStripMenuItem.Click += new System.EventHandler(this.loadPlaylistToolStripMenuItem_Click);
+            // 
+            // saveFileDialog1
+            // 
+            this.saveFileDialog1.Filter = "\"playlist files |*.playlist\"";
+            this.saveFileDialog1.Title = "\"Save playlist\"";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(725, 337);
+            this.ClientSize = new System.Drawing.Size(725, 371);
+            this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.stop);
             this.Controls.Add(this.play);
-            this.Controls.Add(this.addFolder);
-            this.Controls.Add(this.addFile);
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "mp3Player_v2";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing_1);
             ((System.ComponentModel.ISupportInitialize)(this.volumeTrackBar)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -193,8 +256,6 @@ namespace mp3Player_v2
 
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
-        private System.Windows.Forms.Button addFile;
-        private System.Windows.Forms.Button addFolder;
         private System.Windows.Forms.Button play;
         private System.Windows.Forms.Button stop;
         private System.Windows.Forms.TrackBar volumeTrackBar;
@@ -206,6 +267,15 @@ namespace mp3Player_v2
         private System.Windows.Forms.ColumnHeader lengthHeader;
         private System.Windows.Forms.ColumnHeader yearHeader;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem addFileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem addFolderToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem playlistToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem savePlaylistToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem loadPlaylistToolStripMenuItem;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
     }
 }
 
