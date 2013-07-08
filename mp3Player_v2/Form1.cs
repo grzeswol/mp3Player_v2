@@ -51,8 +51,9 @@ namespace mp3Player_v2
                 EnableButtons();
                 return true;
             }
-            catch (Exception)
+            catch (TagLib.UnsupportedFormatException)
             {
+                MessageBox.Show("Damaged playlist file","Error",MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
             
@@ -230,7 +231,7 @@ namespace mp3Player_v2
             catch (NullReferenceException)
             {
                 MessageBox.Show(@"Please select a song to play");
-            }
+            }            
         }
 
         private void stop_Click(object sender, EventArgs e)
