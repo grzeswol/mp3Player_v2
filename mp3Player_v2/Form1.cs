@@ -53,7 +53,7 @@ namespace mp3Player_v2
             }
             catch (TagLib.UnsupportedFormatException)
             {
-                MessageBox.Show("Damaged playlist file","Error",MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(@"Damaged playlist file",@"Error",MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
             
@@ -232,6 +232,49 @@ namespace mp3Player_v2
             {
                 MessageBox.Show(@"Please select a song to play");
             }            
+        }
+
+        private void PlayNextSong()
+        {
+            _focusedTrackIndex++;
+            if (CheckListViewBoundaries())
+            {
+                listView1.SelectedItems.Clear();
+                listView1.Items[_focusedTrackIndex].Selected = true;
+                listView1.Items[_focusedTrackIndex].Focused = true;
+                
+                PlaySong();
+            }
+            else
+            {
+                _mp.Stop();
+            }
+        }
+
+        private bool CheckListViewBoundaries()
+        {
+            if (_focusedTrackIndex > listView1.Items.Count -1 || _focusedTrackIndex < 0)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        private void PlayPreviousSong()
+        {
+            _focusedTrackIndex--;
+            if (CheckListViewBoundaries())
+            {
+                listView1.SelectedItems.Clear();
+                listView1.Items[_focusedTrackIndex].Selected = true;
+                listView1.Items[_focusedTrackIndex].Focused = true;
+
+                PlaySong(); 
+            }
+            else
+            {
+                _mp.Stop();
+            }
         }
 
         private void stop_Click(object sender, EventArgs e)
@@ -420,6 +463,26 @@ namespace mp3Player_v2
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void playToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PlaySong();
+        }
+
+        private void playNextToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PlayNextSong();
+        }
+
+        private void playPreviousToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PlayPreviousSong();
+        }
+
+        private void stopToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            _mp.Stop();
         }
 
         
