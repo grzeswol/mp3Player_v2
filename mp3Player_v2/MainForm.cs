@@ -19,6 +19,7 @@ namespace mp3Player_v2
         private EditTagsForm _form2;
         private int _sortColumn = -1;
         private List<Track> _playList = new List<Track>();
+        private Track[] _copyList; 
         private int _focusedTrackIndex;
 
 
@@ -412,6 +413,11 @@ namespace mp3Player_v2
 
         private void editTagsToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            EditTagsOfSelectedTrack();
+        }
+
+        private void EditTagsOfSelectedTrack()
+        {
             _focusedTrackIndex = listView1.FocusedItem.Index;
             _form2 = new EditTagsForm(_playList[_focusedTrackIndex]);
             _form2.Show();
@@ -425,12 +431,35 @@ namespace mp3Player_v2
 
         private void removeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            _focusedTrackIndex = listView1.FocusedItem.Index;
-            RemoveFromPlaylistAt(_focusedTrackIndex);
-            RemoveFromListViewAt(_focusedTrackIndex);
+            RemoveSelectedTracks();
+        }
+
+        private void RemoveSelectedTracks()
+        {
+            int count = listView1.SelectedIndices.Count;
+            if (count > 1)
+            {
+                int index = listView1.SelectedIndices[0];
+                for (int i = 0; i < count; i++)
+                {
+                    RemoveFromPlaylistAt(index);
+                    RemoveFromListViewAt(index);
+                }
+            }
+            else
+            {
+                RemoveFromPlaylistAt(_focusedTrackIndex);
+                RemoveFromListViewAt(_focusedTrackIndex);
+            }
+            
         }
 
         private void removeAllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            RemoveAllTracks();
+        }
+
+        private void RemoveAllTracks()
         {
             _playList.Clear();
             listView1.Items.Clear();
@@ -464,10 +493,126 @@ namespace mp3Player_v2
             _mp.Stop();
         }
 
-        
-        
+        private void removeToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            RemoveSelectedTracks();
+        }
 
+        private void removeAllToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            RemoveAllTracks();
+        }
 
+        private void byArtistToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (_sortColumn == -1)
+            {
+                SortListAscByParam(SortingParams.Artist);
+                _sortColumn = 1;
+            }
+            else
+            {
+                SortListDescByParam(SortingParams.Artist);
+                _sortColumn = -1;
+            }
+        }
+
+        private void byTitleToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (_sortColumn == -1)
+            {
+                SortListAscByParam(SortingParams.Title);
+                _sortColumn = 1;
+            }
+            else
+            {
+                SortListDescByParam(SortingParams.Title);
+                _sortColumn = -1;
+            }
+        }
+
+        private void byAlbumToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (_sortColumn == -1)
+            {
+                SortListAscByParam(SortingParams.Album);
+                _sortColumn = 1;
+            }
+            else
+            {
+                SortListDescByParam(SortingParams.Album);
+                _sortColumn = -1;
+            }
+        }
+
+        private void byLengthToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (_sortColumn == -1)
+            {
+                SortListAscByParam(SortingParams.Length);
+                _sortColumn = 1;
+            }
+            else
+            {
+                SortListDescByParam(SortingParams.Length);
+                _sortColumn = -1;
+            }
+        }
+
+        private void byYearToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (_sortColumn == -1)
+            {
+                SortListAscByParam(SortingParams.Year);
+                _sortColumn = 1;
+            }
+            else
+            {
+                SortListDescByParam(SortingParams.Year);
+                _sortColumn = -1;
+            }
+        }
+
+        private void copyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CopySelectedTracks();
+        }
+
+        private void CopySelectedTracks()
+        {
+            int count = listView1.SelectedIndices.Count;
+            int index = listView1.SelectedIndices[0];
+            _copyList = new Track[count];
+
+            _playList.CopyTo(index, _copyList, 0, count);
+        }
+
+        private void pasteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PasteTracks();
+        }
+
+        private void PasteTracks()
+        {
+            _focusedTrackIndex = listView1.FocusedItem.Index;
+            _playList.InsertRange(_focusedTrackIndex, _copyList);
+            UpdateListView();
+        }
+
+        private void editTagsToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            EditTagsOfSelectedTrack();
+        }
+
+        private void copyToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            CopySelectedTracks();
+        }
+
+        private void pasteToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            PasteTracks();
+        }
     }
 
     enum SortingParams

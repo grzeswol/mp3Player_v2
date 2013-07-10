@@ -62,6 +62,20 @@ namespace mp3Player_v2
             this.playPreviousToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.stopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pasteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeAllToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.sortToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.byArtistToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.byTitleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.byAlbumToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.byLengthToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.byYearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editTagsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.copyToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.pasteToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.volumeTrackBar)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
@@ -176,9 +190,11 @@ namespace mp3Player_v2
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.editTagsToolStripMenuItem,
             this.removeToolStripMenuItem,
-            this.removeAllToolStripMenuItem});
+            this.removeAllToolStripMenuItem,
+            this.copyToolStripMenuItem1,
+            this.pasteToolStripMenuItem1});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(133, 70);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(153, 136);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // editTagsToolStripMenuItem
@@ -206,8 +222,9 @@ namespace mp3Player_v2
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
-            this.playlistToolStripMenuItem,
-            this.playbackToolStripMenuItem});
+            this.editToolStripMenuItem,
+            this.playbackToolStripMenuItem,
+            this.playlistToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(725, 24);
@@ -227,21 +244,21 @@ namespace mp3Player_v2
             // addFileToolStripMenuItem
             // 
             this.addFileToolStripMenuItem.Name = "addFileToolStripMenuItem";
-            this.addFileToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.addFileToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
             this.addFileToolStripMenuItem.Text = "Add file";
             this.addFileToolStripMenuItem.Click += new System.EventHandler(this.addFileToolStripMenuItem_Click);
             // 
             // addFolderToolStripMenuItem
             // 
             this.addFolderToolStripMenuItem.Name = "addFolderToolStripMenuItem";
-            this.addFolderToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.addFolderToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
             this.addFolderToolStripMenuItem.Text = "Add folder";
             this.addFolderToolStripMenuItem.Click += new System.EventHandler(this.addFolderToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -257,14 +274,14 @@ namespace mp3Player_v2
             // savePlaylistToolStripMenuItem
             // 
             this.savePlaylistToolStripMenuItem.Name = "savePlaylistToolStripMenuItem";
-            this.savePlaylistToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.savePlaylistToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
             this.savePlaylistToolStripMenuItem.Text = "Save playlist";
             this.savePlaylistToolStripMenuItem.Click += new System.EventHandler(this.savePlaylistToolStripMenuItem_Click);
             // 
             // loadPlaylistToolStripMenuItem
             // 
             this.loadPlaylistToolStripMenuItem.Name = "loadPlaylistToolStripMenuItem";
-            this.loadPlaylistToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.loadPlaylistToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
             this.loadPlaylistToolStripMenuItem.Text = "Load playlist";
             this.loadPlaylistToolStripMenuItem.Click += new System.EventHandler(this.loadPlaylistToolStripMenuItem_Click);
             // 
@@ -311,6 +328,115 @@ namespace mp3Player_v2
             // 
             this.saveFileDialog1.Filter = "\"playlist files |*.playlist\"";
             this.saveFileDialog1.Title = "\"Save playlist\"";
+            // 
+            // editToolStripMenuItem
+            // 
+            this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.copyToolStripMenuItem,
+            this.pasteToolStripMenuItem,
+            this.removeToolStripMenuItem1,
+            this.removeAllToolStripMenuItem1,
+            this.sortToolStripMenuItem,
+            this.editTagsToolStripMenuItem1});
+            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
+            this.editToolStripMenuItem.Text = "Edit";
+            // 
+            // copyToolStripMenuItem
+            // 
+            this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
+            this.copyToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.copyToolStripMenuItem.Text = "Copy";
+            this.copyToolStripMenuItem.Click += new System.EventHandler(this.copyToolStripMenuItem_Click);
+            // 
+            // pasteToolStripMenuItem
+            // 
+            this.pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
+            this.pasteToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.pasteToolStripMenuItem.Text = "Paste";
+            this.pasteToolStripMenuItem.Click += new System.EventHandler(this.pasteToolStripMenuItem_Click);
+            // 
+            // removeToolStripMenuItem1
+            // 
+            this.removeToolStripMenuItem1.Name = "removeToolStripMenuItem1";
+            this.removeToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.removeToolStripMenuItem1.Text = "Remove";
+            this.removeToolStripMenuItem1.Click += new System.EventHandler(this.removeToolStripMenuItem1_Click);
+            // 
+            // removeAllToolStripMenuItem1
+            // 
+            this.removeAllToolStripMenuItem1.Name = "removeAllToolStripMenuItem1";
+            this.removeAllToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.removeAllToolStripMenuItem1.Text = "Remove all";
+            this.removeAllToolStripMenuItem1.Click += new System.EventHandler(this.removeAllToolStripMenuItem1_Click);
+            // 
+            // sortToolStripMenuItem
+            // 
+            this.sortToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.byArtistToolStripMenuItem,
+            this.byTitleToolStripMenuItem,
+            this.byAlbumToolStripMenuItem,
+            this.byLengthToolStripMenuItem,
+            this.byYearToolStripMenuItem});
+            this.sortToolStripMenuItem.Name = "sortToolStripMenuItem";
+            this.sortToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.sortToolStripMenuItem.Text = "Sort";
+            // 
+            // byArtistToolStripMenuItem
+            // 
+            this.byArtistToolStripMenuItem.Name = "byArtistToolStripMenuItem";
+            this.byArtistToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.byArtistToolStripMenuItem.Text = "By artist";
+            this.byArtistToolStripMenuItem.Click += new System.EventHandler(this.byArtistToolStripMenuItem_Click);
+            // 
+            // byTitleToolStripMenuItem
+            // 
+            this.byTitleToolStripMenuItem.Name = "byTitleToolStripMenuItem";
+            this.byTitleToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.byTitleToolStripMenuItem.Text = "By title";
+            this.byTitleToolStripMenuItem.Click += new System.EventHandler(this.byTitleToolStripMenuItem_Click);
+            // 
+            // byAlbumToolStripMenuItem
+            // 
+            this.byAlbumToolStripMenuItem.Name = "byAlbumToolStripMenuItem";
+            this.byAlbumToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.byAlbumToolStripMenuItem.Text = "By album";
+            this.byAlbumToolStripMenuItem.Click += new System.EventHandler(this.byAlbumToolStripMenuItem_Click);
+            // 
+            // byLengthToolStripMenuItem
+            // 
+            this.byLengthToolStripMenuItem.Name = "byLengthToolStripMenuItem";
+            this.byLengthToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.byLengthToolStripMenuItem.Text = "By length";
+            this.byLengthToolStripMenuItem.Click += new System.EventHandler(this.byLengthToolStripMenuItem_Click);
+            // 
+            // byYearToolStripMenuItem
+            // 
+            this.byYearToolStripMenuItem.Name = "byYearToolStripMenuItem";
+            this.byYearToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.byYearToolStripMenuItem.Text = "By year";
+            this.byYearToolStripMenuItem.Click += new System.EventHandler(this.byYearToolStripMenuItem_Click);
+            // 
+            // editTagsToolStripMenuItem1
+            // 
+            this.editTagsToolStripMenuItem1.Name = "editTagsToolStripMenuItem1";
+            this.editTagsToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.editTagsToolStripMenuItem1.Text = "Edit tags";
+            this.editTagsToolStripMenuItem1.Click += new System.EventHandler(this.editTagsToolStripMenuItem1_Click);
+            // 
+            // copyToolStripMenuItem1
+            // 
+            this.copyToolStripMenuItem1.Name = "copyToolStripMenuItem1";
+            this.copyToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.copyToolStripMenuItem1.Text = "Copy";
+            this.copyToolStripMenuItem1.Click += new System.EventHandler(this.copyToolStripMenuItem1_Click);
+            // 
+            // pasteToolStripMenuItem1
+            // 
+            this.pasteToolStripMenuItem1.Name = "pasteToolStripMenuItem1";
+            this.pasteToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.pasteToolStripMenuItem1.Text = "Paste";
+            this.pasteToolStripMenuItem1.Click += new System.EventHandler(this.pasteToolStripMenuItem1_Click);
             // 
             // MainForm
             // 
@@ -370,6 +496,20 @@ namespace mp3Player_v2
         private System.Windows.Forms.ToolStripMenuItem playNextToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem playPreviousToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem stopToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem copyToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem pasteToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem removeToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem removeAllToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem sortToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem byArtistToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem byTitleToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem byAlbumToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem byLengthToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem byYearToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem editTagsToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem copyToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem pasteToolStripMenuItem1;
     }
 }
 
