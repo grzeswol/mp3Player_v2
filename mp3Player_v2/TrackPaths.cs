@@ -33,7 +33,7 @@ namespace mp3Player_v2
         private void CreateTrackListPaths()
         {
             _trackListPaths.Clear();
-            _trackListPaths.AddRange(Directory.GetFiles(_path, "*.mp3", SearchOption.AllDirectories));
+            _trackListPaths.AddRange(Directory.EnumerateFiles(_path, "*.mp3", SearchOption.AllDirectories));
         }
 
         

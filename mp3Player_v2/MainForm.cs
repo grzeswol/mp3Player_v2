@@ -16,11 +16,12 @@ namespace mp3Player_v2
         private readonly MusicPlayer _mp = new MusicPlayer();
         private readonly TrackPaths _trackPaths = new TrackPaths();
 
-        private EditTagsForm _form2;
+        private EditTagsForm _editTagsForm;
         private int _sortColumn = -1;
         private List<Track> _playList = new List<Track>();
         private Track[] _copyList; 
         private int _focusedTrackIndex;
+        private LibraryForm _libraryForm;
 
 
         public MainForm()
@@ -29,8 +30,7 @@ namespace mp3Player_v2
             
             if (!LoadPlaylist(CurrentPlaylist))
             {
-                play.Enabled = false;
-                stop.Enabled = false;
+                EnableButtons(false);
             }
         }
 
@@ -49,7 +49,7 @@ namespace mp3Player_v2
                     }
                 }
                 UpdateListView();
-                EnableButtons();
+                EnableButtons(true);
                 return true;
             }
             catch (TagLib.UnsupportedFormatException)
@@ -167,14 +167,18 @@ namespace mp3Player_v2
                 Track tempTrack = new Track(openFileDialog1.FileName);
                 _playList.Add(tempTrack);
                 AddTrackToListView(tempTrack);
-                EnableButtons();
+                EnableButtons(true);
             }
         }
 
-        private void EnableButtons()
+        private void EnableButtons(bool enabled)
         {
-            play.Enabled = true;
-            stop.Enabled = true;
+            play.Enabled = enabled;
+            stop.Enabled = enabled;
+            playToolStripMenuItem.Enabled = enabled;
+            playNextToolStripMenuItem.Enabled = enabled;
+            playPreviousToolStripMenuItem.Enabled = enabled;
+            stopToolStripMenuItem.Enabled = enabled;
         }
 
         private void AddFolderToPlaylistAndListView()
@@ -191,7 +195,7 @@ namespace mp3Player_v2
                 AddTrackToListView(tempTrack);
             }
 
-            EnableButtons();
+            EnableButtons(true);
         }
 
         private void play_Click(object sender, EventArgs e)
@@ -342,11 +346,11 @@ namespace mp3Player_v2
             _playList.RemoveAt(index);
         }
 
-        void form2_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        void EditTagsFormClosing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             _focusedTrackIndex = listView1.FocusedItem.Index;
-            AddTrackToPlaylistAt(_form2.Track, _focusedTrackIndex);
-            AddTrackToListView(_form2.Track,_focusedTrackIndex);
+            AddTrackToPlaylistAt(_editTagsForm.Track, _focusedTrackIndex);
+            AddTrackToListView(_editTagsForm.Track,_focusedTrackIndex);
         }
 
         private void SavePlaylist(string playlistName)
@@ -419,9 +423,9 @@ namespace mp3Player_v2
         private void EditTagsOfSelectedTrack()
         {
             _focusedTrackIndex = listView1.FocusedItem.Index;
-            _form2 = new EditTagsForm(_playList[_focusedTrackIndex]);
-            _form2.Show();
-            _form2.Closing += form2_Closing;
+            _editTagsForm = new EditTagsForm(_playList[_focusedTrackIndex]);
+            _editTagsForm.Show();
+            _editTagsForm.Closing += EditTagsFormClosing;
         }
 
         private void contextMenuStrip1_Opening(object sender, System.ComponentModel.CancelEventArgs e)
@@ -464,8 +468,7 @@ namespace mp3Player_v2
             _playList.Clear();
             listView1.Items.Clear();
 
-            play.Enabled = false;
-            stop.Enabled = false;
+            EnableButtons(false);
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -612,6 +615,12 @@ namespace mp3Player_v2
         private void pasteToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             PasteTracks();
+        }
+
+        private void libraryToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            _libraryForm = new LibraryForm();
+            _libraryForm.Show();
         }
     }
 

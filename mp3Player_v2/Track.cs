@@ -68,11 +68,7 @@ namespace mp3Player_v2
 
         private void GetYearTagFromFile()
         {
-            if (_tagFile.Tag.Year == 0)
-            {
-                Year = "";
-            }
-            else Year = _tagFile.Tag.Year.ToString(CultureInfo.InvariantCulture);
+            Year = _tagFile.Tag.Year == 0 ? "" : _tagFile.Tag.Year.ToString(CultureInfo.InvariantCulture);
         }
 
         private void GetLengthTagFromFile()
@@ -83,6 +79,10 @@ namespace mp3Player_v2
 
         private void GetAlbumTagFromFile()
         {
+            if (_tagFile.Tag.Album == null)
+            {
+                Album = "";
+            }
             Album = _tagFile.Tag.Album;
         }
 
@@ -91,7 +91,7 @@ namespace mp3Player_v2
             string[] artists = new string[] {};
             if (_tagFile.Tag.AlbumArtists == null)
             {
-                if (_tagFile != null) artists = new[] {_tagFile.Tag.JoinedPerformers};
+                Artist = "";
             }
             else artists = _tagFile.Tag.AlbumArtists;
             Artist = String.Concat(artists);
