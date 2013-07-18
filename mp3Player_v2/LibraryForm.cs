@@ -220,5 +220,12 @@ namespace mp3Player_v2
             }
             
         }
+
+        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
     }
+
+    
 }

@@ -32,6 +32,7 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.libraryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createLibraryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -58,7 +59,8 @@
             // libraryToolStripMenuItem
             // 
             this.libraryToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.createLibraryToolStripMenuItem});
+            this.createLibraryToolStripMenuItem,
+            this.closeToolStripMenuItem});
             this.libraryToolStripMenuItem.Name = "libraryToolStripMenuItem";
             this.libraryToolStripMenuItem.Size = new System.Drawing.Size(55, 20);
             this.libraryToolStripMenuItem.Text = "Library";
@@ -66,9 +68,16 @@
             // createLibraryToolStripMenuItem
             // 
             this.createLibraryToolStripMenuItem.Name = "createLibraryToolStripMenuItem";
-            this.createLibraryToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.createLibraryToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.createLibraryToolStripMenuItem.Text = "Create library";
             this.createLibraryToolStripMenuItem.Click += new System.EventHandler(this.createLibraryToolStripMenuItem_Click);
+            // 
+            // closeToolStripMenuItem
+            // 
+            this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.closeToolStripMenuItem.Text = "Close";
+            this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
             // LibraryForm
             // 
@@ -94,5 +103,6 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem libraryToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem createLibraryToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
     }
 }
